@@ -1,15 +1,13 @@
 import { mockUsers } from "./constants.mjs";
 
-export const resolveIndexByUserId = (req, res, next) => {
+export const resolveIndexByUserId = (request, response, next) => {
   const {
-    body,
     params: { id },
-  } = req;
-
+  } = request;
   const parsedId = parseInt(id);
-  if (isNaN(parsedId)) return res.sendStatus(400);
+  if (isNaN(parsedId)) return response.sendStatus(400);
   const findUserIndex = mockUsers.findIndex((user) => user.id === parsedId);
-  if (findUserIndex === -1) return res.sendStatus(404);
-  req.findUserIndex = findUserIndex;
+  if (findUserIndex === -1) return response.sendStatus(404);
+  request.findUserIndex = findUserIndex;
   next();
 };
